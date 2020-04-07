@@ -25,6 +25,7 @@ const App = () => {
       <Display text="good " value={good} />
       <Display text="neutral " value={neutral} />
       <Display text="bad " value={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad}/>
 
     </div>
   )
@@ -37,6 +38,19 @@ const Button = (props) => (
 )
 
 const Display = props => <div>{props.text}{props.value}</div>
+
+const Statistics = (props) => {
+  const sum = props.good + props.bad + props.neutral
+  const num = props.good - props.bad
+  return (
+    <div>
+      <p>all {sum}</p>
+      <p>average {num/sum}</p>
+      <p>positive {100*props.good/sum} %</p>
+
+    </div>
+  )
+  }
 
 
 
