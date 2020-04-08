@@ -41,6 +41,7 @@ const Course = (props) => {
             {parts.name} {parts.exercises}
           </p>
         )}
+      <Total parts={course.parts} />
     </>
   )
 }
@@ -78,7 +79,7 @@ const Total = (props) => {
   const result = sum(props.parts[0].exercises,props.parts[1].exercises,props.parts[2].exercises)
   return (
     <>
-      <p>Number of exercises {result}</p>
+      <b>Number of exercises {result}</b>
     </>
   )
 }
