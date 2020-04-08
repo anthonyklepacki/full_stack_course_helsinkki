@@ -18,12 +18,14 @@ const App = (props) => {
   }
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{props.anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
 
       <Button text="Vote" handleClick={() => voteSelected()}/>
       <Button text="Next anecdote" handleClick={() => genRandSelect()}/>
 
+      <BestAnecdote votes={votes} anecdotes={props.anecdotes}/>
     </div>
   )
 }
@@ -42,6 +44,17 @@ const Button = (props) => (
     {props.text}
   </button>
 )
+
+const BestAnecdote = (props) => {
+  const maxVotes = props.votes.indexOf(Math.max(...props.votes));
+  console.log(maxVotes)
+  return (
+    <div>
+      <h1>Best anecdote</h1>
+      <p>{props.anecdotes[maxVotes]}</p>
+    </div>
+  )
+  }
 
 
 ReactDOM.render(
