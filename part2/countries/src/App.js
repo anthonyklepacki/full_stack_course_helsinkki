@@ -3,6 +3,7 @@ import axios from 'axios'
 import './App.css';
 import Filter from './components/Filter'
 import CountryInfo from './components/CountryInfo'
+import Button from './components/Button'
 
 const App = () => {
   
@@ -30,6 +31,11 @@ const App = () => {
     setCountryFilter(event.target.value)
   }
 
+  const handleShowCountry = (name) => {
+    console.log(name)
+    setCountryFilter(name)
+  }
+
 
 
   return (
@@ -54,7 +60,11 @@ const App = () => {
         )
       else {
         return (
-          <div>{countriesToShow.map(country => <p>{country.name}</p>)}</div>
+          <div>{countriesToShow.map(country => <p>{country.name} 
+              <Button text='show' 
+                      handleClick={() => handleShowCountry(country.name)}
+                      />
+            </p>)}</div>
         )
       }
     })()}
