@@ -6,10 +6,10 @@ import CountryInfo from './components/CountryInfo'
 import Button from './components/Button'
 
 const App = () => {
-  
-
+    
   const [ countries, setCountries] = useState([]) 
   const [ countryFilter, setCountryFilter] = useState('')
+
 
   useEffect(() => {
     axios
@@ -20,6 +20,8 @@ const App = () => {
       }
     )
   },[])
+
+
 
   const countriesToShow = (countryFilter==='')
         ? countries
@@ -33,16 +35,12 @@ const App = () => {
 
   const handleShowCountry = (name) => {
     console.log(name)
-    setCountryFilter(name)
+    setCountryFilter(name)    
   }
 
-
+  
 
   return (
-
-
-          
-
     <div>
       <Filter onChangeHandler={handleCountryFilterChange} />  
     {(() => {
@@ -52,13 +50,15 @@ const App = () => {
         return (
           <div><p> Too many matches, specify another filter</p></div>
         )
-      } else if (countriesToShow.length === 1)
+      } else if (countriesToShow.length === 1){
+        
+      
         return (
           <div>
             <CountryInfo country={countriesToShow[0]}/>
           </div>
         )
-      else {
+        }else {
         return (
           <div>{countriesToShow.map(country => <p>{country.name} 
               <Button text='show' 
