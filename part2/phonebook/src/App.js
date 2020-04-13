@@ -55,8 +55,21 @@ const App = () => {
       })
 
     }else{
-        window.alert(`${newName} is already added to phonebook`);
-    }
+        if(window.confirm(`${newName} is already added to phonebook, replace the old nubmer with a new one?`)){
+        
+
+        const currentPerson = persons.find(p => p.name === newName)
+        console.log(currentPerson)
+        const nameObj = {
+          name: newName,
+          number: newNumber 
+        }
+        personService
+          .update(currentPerson.id, nameObj).then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== currentPerson.id ? person : returnedPerson))
+          })
+        }
+      }
   }
 
   const namesToShow = (filterName==='')
