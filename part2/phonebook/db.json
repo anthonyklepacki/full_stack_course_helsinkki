@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Tony 3",
-      "number": "6546546",
-      "id": 8
-    },
-    {
       "name": "Tony",
       "number": "564654",
       "id": 9
@@ -17,8 +12,18 @@
     },
     {
       "name": "Dorota",
-      "number": "6546546",
+      "number": "321321",
       "id": 11
+    },
+    {
+      "name": "Dorota 1",
+      "number": " 464654654",
+      "id": 12
+    },
+    {
+      "name": "Dorota 2",
+      "number": "2323",
+      "id": 13
     }
   ]
 }

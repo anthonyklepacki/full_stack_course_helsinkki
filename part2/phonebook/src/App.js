@@ -14,8 +14,20 @@ import personService from './services/AddPerson'
 
 const App = () => {
   
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+  
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  }
 
   const [ persons, setPersons] = useState([]) 
+  const [errorMessage, setErrorMessage] = useState(null)
 
 
 
@@ -54,6 +66,12 @@ const App = () => {
           setNewNumber('')
       })
 
+      setErrorMessage( `Added '${newName}'`)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+
+
     }else{
         if(window.confirm(`${newName} is already added to phonebook, replace the old nubmer with a new one?`)){
         
@@ -68,6 +86,11 @@ const App = () => {
           .update(currentPerson.id, nameObj).then(returnedPerson => {
             setPersons(persons.map(person => person.id !== currentPerson.id ? person : returnedPerson))
           })
+
+          setErrorMessage( `Updated '${newName}'`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
         }
       }
   }
@@ -107,6 +130,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <Filter onChangeHandler={handleFilterChange}/>
 
       <h3>Add a new</h3>
