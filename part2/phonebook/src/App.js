@@ -79,6 +79,17 @@ const App = () => {
     setFilterName(event.target.value)
   }
 
+  const handleNameDelete = (id,name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      console.log(id)
+      personService
+        .deleteEntry(id)
+      setPersons(persons.filter(n => n.id !== id)) 
+    }
+         
+
+  }
+
 
   return (
     <div>
@@ -94,7 +105,7 @@ const App = () => {
                    />
 
       <h3>Numbers</h3>
-      <Persons namesToShow={namesToShow}/>
+      <Persons namesToShow={namesToShow} clickAction={handleNameDelete}/>
 
         
     </div>

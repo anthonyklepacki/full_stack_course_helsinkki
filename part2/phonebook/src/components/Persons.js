@@ -1,13 +1,14 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from './Button'
 
 const Persons = (props) => {
     return (
         <>
             {props.namesToShow.map(person =>
                 <p>
-                    {person.name} {person.number}
+                    {person.name} {person.number} <Button text='Delete' handleClick={() => props.clickAction(person.id,person.name)}/>
                 </p>)}
         </>
     )
