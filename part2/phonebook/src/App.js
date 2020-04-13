@@ -20,6 +20,19 @@ const App = () => {
     }
   
     return (
+      <div className="notification">
+        {message}
+      </div>
+    )
+  }
+
+
+  const Error = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+  
+    return (
       <div className="error">
         {message}
       </div>
@@ -27,6 +40,7 @@ const App = () => {
   }
 
   const [ persons, setPersons] = useState([]) 
+  const [notificationMessage, setNotificationMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
 
@@ -66,9 +80,9 @@ const App = () => {
           setNewNumber('')
       })
 
-      setErrorMessage( `Added '${newName}'`)
+      setNotificationMessage( `Added '${newName}'`)
       setTimeout(() => {
-        setErrorMessage(null)
+        setNotificationMessage(null)
       }, 5000)
 
 
@@ -87,9 +101,9 @@ const App = () => {
             setPersons(persons.map(person => person.id !== currentPerson.id ? person : returnedPerson))
           })
 
-          setErrorMessage( `Updated '${newName}'`)
+          setNotificationMessage( `Updated '${newName}'`)
           setTimeout(() => {
-            setErrorMessage(null)
+            setNotificationMessage(null)
           }, 5000)
         }
       }
@@ -119,8 +133,15 @@ const App = () => {
     if (window.confirm(`Delete ${name}?`)) {
       console.log(id)
       personService
-        .deleteEntry(id)
-      setPersons(persons.filter(n => n.id !== id)) 
+        .deleteEntry(id).then(setPersons(persons.filter(n => n.id !== id)))
+        .catch(error => {
+          setErrorMessage( `'${name}' was already removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setPersons(persons.filter(n => n.id !== id)) 
+        })
+      //setPersons(persons.filter(n => n.id !== id)) 
     }
          
 
@@ -130,7 +151,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={notificationMessage} />
+      <Error message={errorMessage} />
       <Filter onChangeHandler={handleFilterChange}/>
 
       <h3>Add a new</h3>
